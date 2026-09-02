@@ -2,372 +2,234 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#14100C">
-  <link rel="icon" type="image/png" href="arlo-logo-reference.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>Arlo — منصة اجتماعية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Arlo - Krono</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-<div id="splash"><div class="splash-logo"><img src="arlo-logo-reference.png" alt="Arlo"></div><h1>Arlo</h1><p>تواصل بلا حدود</p></div>
+<body class="theme-midnight">
+  <div id="app" class="app-root">
+    
+    <!-- شاشة تسجيل الدخول وإنشاء الحساب -->
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-card">
+        <div class="brand">
+          <div class="brand-logo">A</div>
+          <h1>Arlo</h1>
+          <p>تواصل مع العالم بأسلوبك</p>
+        </div>
 
-<section id="auth">
-  <div class="auth-card">
-    <div class="auth-logo"><img src="arlo-logo-reference.png" alt="Arlo"></div><h1>Arlo</h1><p class="muted">عالمك الاجتماعي</p>
-    <div id="loginPage">
-      <input id="loginEmail" type="email" placeholder="البريد الإلكتروني">
-      <div class="password-field"><input id="loginPassword" type="password" placeholder="كلمة السر"><button onclick="togglePassword('loginPassword')">👁</button></div>
-      <button class="primary-btn" onclick="login()">تسجيل الدخول</button>
-      <button class="text-btn" onclick="showRegister()">إنشاء حساب جديد</button>
-    </div>
-    <div id="registerPage" class="hidden">
-      <input id="registerName" placeholder="الاسم">
-      <input id="registerUsername" placeholder="اسم المستخدم مثل @arlo">
-      <input id="registerEmail" type="email" placeholder="البريد الإلكتروني">
-      <input id="registerPhone" placeholder="رقم الهاتف (اختياري)">
-      <label>تاريخ الميلاد</label><input id="registerBirth" type="date">
-      <select id="registerGender"><option value="">اختر الجنس</option><option>ذكر</option><option>أنثى</option></select>
-      <div class="password-field"><input id="registerPassword" type="password" placeholder="كلمة السر"><button onclick="togglePassword('registerPassword')">👁</button></div>
-      <div id="passwordHint" class="password-hint"></div>
-      <input id="registerConfirm" type="password" placeholder="تأكيد كلمة السر">
-      <button class="primary-btn" onclick="createAccount()">إنشاء الحساب</button>
-      <button class="text-btn" onclick="showLogin()">العودة لتسجيل الدخول</button>
-    </div>
-  </div>
-</section>
+        <div class="auth-tabs">
+          <button id="loginTabBtn" class="tab-btn active" onclick="switchAuthTab('login')">تسجيل الدخول</button>
+          <button id="registerTabBtn" class="tab-btn" onclick="switchAuthTab('register')">حساب جديد</button>
+        </div>
 
-<div id="app" class="hidden">
-<header class="topbar">
-  <button class="menu-btn icon-button" onclick="openSettingsMenu()" aria-label="القائمة"><span class="ui-icon" data-icon="more"></span></button>
-  <div class="brand brand-centered"><div class="brand-logo"><img src="arlo-logo-reference.png" alt="Arlo"></div><strong>Arlo</strong></div>
-  <div class="top-actions">
-    <button class="icon-button" onclick="openPage('notifications')" aria-label="الإشعارات"><span class="ui-icon icon-bell"></span></button>
-    <button class="icon-button" onclick="focusGlobalSearch('')" aria-label="البحث"><span class="ui-icon icon-search"></span></button>
-    <button class="icon-button top-message" onclick="openPage('messages')" aria-label="الرسائل"><span class="ui-icon icon-message"></span></button>
-  </div>
-  <div class="top-search top-search-hidden"><input id="globalSearch" placeholder="ابحث عن أشخاص أو منشورات..." oninput="searchUsers(this.value)"></div>
-</header>
-
-<main>
-  <section id="homePage" class="page">
-    <div class="welcome-box"><strong id="welcomeName">أهلاً بك 👋</strong><small>سعيدين بوجودك في Arlo</small></div>
-    <div class="v2-hub" aria-label="مركز Arlo V2.0">
-      <button onclick="openPage('home')"><span class="ui-icon icon-home" aria-hidden="true"></span><b>الخلاصة</b><small>الصفحة الرئيسية</small></button>
-      <button onclick="openPage('shorts')"><span class="ui-icon icon-play" aria-hidden="true"></span><b>فيديوهات قصيرة</b><small>مقاطع سريعة</small></button>
-      <button onclick="openPage('watch')"><span class="ui-icon" data-icon="video" aria-hidden="true"></span><b>الفيديوهات</b><small>فيديو طويل وقصير</small></button>
-      <button onclick="openPage('channels')"><span class="ui-icon icon-broadcast" aria-hidden="true"></span><b>القنوات</b><small>قنوات Arlo</small></button>
-      <button onclick="openPage('communities')"><span class="ui-icon icon-users" aria-hidden="true"></span><b>المجتمعات</b><small>مجموعات Arlo</small></button>
-    </div>
-    <div class="data-saver-banner" id="dataSaverBanner">📶 وضع توفير البيانات <span>مفعّل</span></div>
-
-    <div class="search-results hidden" id="searchResults"></div>
-    <div id="searchQuickPanel" class="search-quick-panel hidden">
-      <button onclick="focusGlobalSearch('')">🔎 بحث</button>
-      <button onclick="openPage('explore')">👥 أشخاص</button>
-      <button onclick="openPage('explore')">🌐 استكشاف</button>
-      <button onclick="openPage('messages')">💬 رسائل</button>
-    </div>
-
-    <div class="section-head stories-section-title"><h2>القصص</h2><button class="text-btn" onclick="openStoryEditor()">+ قصتك</button></div>
-    <div id="stories" class="stories-carousel"></div>
-
-    <div class="section-head feed-section-title"><h2>المنشورات</h2></div>
-    <div id="posts" class="posts-feed"></div>
-  </section>
-
-  <section id="explorePage" class="page hidden">
-    <div class="section-title"><h2>🔎 استكشاف</h2><p>اكتشف حسابات ومحتوى جديدًا.</p></div>
-    <div id="exploreUsers" class="user-grid"></div>
-  </section>
-
-  <section id="shortsPage" class="page hidden">
-    <div class="section-title"><h2>▶️ فيديوهات قصيرة</h2><p>فيديوهات قصيرة بتحميل خفيف. الفيديو لا يبدأ تلقائيًا.</p></div>
-    <div id="shortsList" class="shorts-feed"></div>
-  </section>
-
-  <section id="watchPage" class="page hidden">
-    <div class="section-title"><h2>🎬 فيديوهات Arlo</h2><p>مساحة الفيديو الطويل والقصير داخل Arlo.</p></div>
-    <div id="watchList" class="watch-grid"></div>
-  </section>
-
-  <section id="channelsPage" class="page hidden">
-    <div class="section-title"><h2>📣 قنوات Arlo</h2><p>فكرة القنوات العامة مع تحديثات خفيفة.</p><button class="secondary-btn" onclick="createKronoChannel()">＋ إنشاء قناة</button></div>
-    <div id="channelsList" class="hub-grid"></div>
-  </section>
-
-  <section id="communitiesPage" class="page hidden">
-    <div class="section-title"><h2>👥 مجتمعات Arlo</h2><p>مجتمعات واهتمامات في مكان واحد.</p><button class="secondary-btn" onclick="createKronoCommunity()">＋ إنشاء مجتمع</button></div>
-    <div id="communitiesList" class="hub-grid"></div>
-  </section>
-
-  <section id="messagesPage" class="page hidden">
-    <div class="messages-shell">
-      <aside class="chat-list-pane">
-        <div class="chat-list-head"><div><h2>الرسائل</h2><small>محادثات Arlo</small></div><button class="icon-button" onclick="loadChatList()" title="تحديث">⟳</button></div>
-        <div class="chat-search"><span>⌕</span><input id="chatSearchInput" placeholder="البحث في المحادثات..." oninput="filterChatList(this.value)"></div>
-        <div id="chatList" class="chat-list"></div>
-      </aside>
-      <section id="chatPanel" class="chat-panel hidden">
-        <div class="chat-title">
-          <button class="chat-back-btn" onclick="closeChat()" title="رجوع">←</button>
-          <div class="chat-user-title" onclick="openChatInfo()" title="معلومات المحادثة"><div id="chatAvatar" class="avatar">K</div><div><strong id="chatName">محادثة</strong><small id="chatStatus" class="chat-status">متصل الآن</small></div></div>
-          <div class="chat-call-actions">
-            <button onclick="startVoiceCall()" title="مكالمة صوتية" aria-label="مكالمة صوتية"><span class="ui-icon" data-icon="phone"></span></button>
-            <button onclick="startVideoCall()" title="مكالمة فيديو" aria-label="مكالمة فيديو"><span class="ui-icon" data-icon="video"></span></button>
-            <button onclick="openChatInfo()" title="معلومات وإعدادات المحادثة" aria-label="معلومات وإعدادات المحادثة"><span class="ui-icon" data-icon="settings"></span></button>
+        <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+          <div class="input-group">
+            <label for="loginEmail">البريد الإلكتروني</label>
+            <input type="email" id="loginEmail" required placeholder="name@example.com">
           </div>
-        </div>
-        <div id="messagesList" class="messages-list"></div>
-        <div id="chatEmojiPanel" class="chat-emoji-panel hidden" aria-label="لوحة الإيموجي"></div>
-        <div id="chatAttachMenu" class="chat-attach-menu hidden" aria-label="إرسال مرفق">
-          <button type="button" onclick="pickChatAttachment('image')"><span>🖼️</span> صورة</button>
-          <button type="button" onclick="pickChatAttachment('video')"><span>🎬</span> فيديو</button>
-          <button type="button" onclick="pickChatAttachment('audio')"><span>🎵</span> مقطع صوتي</button>
-          <button type="button" onclick="pickChatAttachment('file')"><span>📎</span> ملف</button>
-        </div>
-        <input id="chatImageInput" type="file" accept="image/*" hidden onchange="attachChatFile(this)">
-        <input id="chatVideoInput" type="file" accept="video/*" hidden onchange="attachChatFile(this)">
-        <input id="chatAudioInput" type="file" accept="audio/*" hidden onchange="attachChatFile(this)">
-        <input id="chatFileInput" type="file" accept=".pdf,.doc,.docx,.txt,.zip,.rar,application/*" hidden onchange="attachChatFile(this)">
-        <div class="message-compose">
-          <button type="button" class="compose-icon attach-btn" onclick="toggleAttachMenu()" title="إرسال صورة أو فيديو أو ملف" aria-label="إرسال مرفق"><span class="ui-icon" data-icon="attach"></span></button>
-          <button type="button" class="compose-icon emoji-btn" onclick="toggleEmojiPanel()" title="الإيموجي" aria-label="الإيموجي"><span class="ui-icon" data-icon="emoji"></span></button>
-          <input id="messageInput" placeholder="اكتب رسالة..." autocomplete="off">
-          <button id="voiceMessageBtn" type="button" class="compose-icon voice-btn" onclick="toggleVoiceMessage()" title="رسالة صوتية" aria-label="رسالة صوتية"><span class="ui-icon" data-icon="mic"></span></button>
-          <button type="button" class="send-btn" onclick="sendMessage()" title="إرسال" aria-label="إرسال"><span class="ui-icon" data-icon="send"></span></button>
-        </div>
-      </section>
-      <div id="chatEmptyState" class="chat-empty-state"><div class="brand-logo"><img src="arlo-logo-reference.png" alt="Arlo"></div><h2>رسائل Arlo</h2><p>اختر محادثة من القائمة لبدء الدردشة.</p></div>
-    </div>
-  </section>
+          <div class="input-group">
+            <label for="loginPassword">كلمة المرور</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="primary-btn full-width" id="loginSubmitBtn">دخول</button>
+        </form>
 
-  <section id="notificationsPage" class="page hidden">
-    <div class="section-title"><h2>🔔 الإشعارات</h2><p>طلبات الصداقة والتنبيهات.</p></div>
-    <div id="notificationsList"></div>
-  </section>
+        <form id="registerForm" class="auth-form hidden" onsubmit="handleRegister(event)">
+          <div class="input-group">
+            <label for="regName">الاسم الكامل</label>
+            <input type="text" id="regName" required placeholder="علي الشملول">
+          </div>
+          <div class="input-group">
+            <label for="regUsername">اسم المستخدم</label>
+            <input type="text" id="regUsername" required placeholder="ali3li">
+          </div>
+          <div class="input-group">
+            <label for="regEmail">البريد الإلكتروني</label>
+            <input type="email" id="regEmail" required placeholder="name@example.com">
+          </div>
+          <div class="input-group">
+            <label for="regPassword">كلمة المرور</label>
+            <input type="password" id="regPassword" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="primary-btn full-width" id="regSubmitBtn">إنشاء الحساب</button>
+        </form>
 
-  <section id="otherProfilePage" class="page hidden">
-    <div class="other-profile-topbar">
-      <button class="back-profile-btn" onclick="backFromUserProfile()">← رجوع</button>
-      <strong>الملف الشخصي</strong>
-    </div>
-    <div class="profile-cover"></div>
-    <div class="profile-card profile-main">
-      <div id="otherPageAvatar" class="profile-avatar">K</div>
-      <h2 id="otherPageName">مستخدم Arlo</h2>
-      <p id="otherPageUsername" class="muted"></p>
-      <p id="otherPageBio">عضو في Arlo</p><small id="otherPageBirth" class="muted"></small><small id="otherPageEmail" class="muted"></small>
-      <div class="profile-data"><div><b id="otherPageFriends">0</b><small>الأصدقاء</small></div><div><b id="otherPagePosts">0</b><small>المنشورات</small></div></div>
-      <div class="profile-actions-row">
-        <button id="otherPageFriendButton" class="primary-btn">➕ إضافة صديق</button><button id="otherPageFollowButton" class="secondary-btn">＋ متابعة</button>
-        <button class="secondary-btn" onclick="messageSelectedUser()">💬 مراسلة</button>
+        <div id="authError" class="auth-error hidden"></div>
       </div>
-      <div class="section-title compact-title"><h3>منشورات هذا الحساب</h3></div>
-      <div id="otherPagePostsList"><div class="post">جارٍ تحميل المنشورات...</div></div>
-    </div>
-  </section>
+    </section>
 
-  <section id="profilePage" class="page hidden">
-    <div class="profile-cover"></div>
-    <div class="profile-card profile-main">
-      <div class="profile-cover-tools"><label><span class="ui-icon icon-image"></span> صورة الغلاف<input id="profileCoverFile" type="file" accept="image/*" onchange="saveProfileMedia('cover')" hidden></label></div>
-      <div id="profileAvatar" class="profile-avatar">K</div>
-      <h2 id="profileName">-</h2><p id="profileUsername" class="muted">-</p><p id="profileEmail" class="muted">-</p>
-      <p id="profileBio">عضو في Arlo</p><small id="profileBirth" class="muted"></small><label class="profile-photo-picker"><span class="ui-icon icon-camera"></span> تغيير صورة الملف<input id="profileAvatarFile" type="file" accept="image/*" onchange="saveProfileMedia('avatar')" hidden></label>
-      <div class="profile-data"><div><b id="profileFriends">0</b><small>الأصدقاء</small></div><div><b id="profilePosts">0</b><small>المنشورات</small></div></div>
-      <button class="secondary-btn" onclick="editProfile()">✏️ تعديل الملف الشخصي</button>
-      <div class="profile-tabs"><button onclick="showProfileTab('posts')">المنشورات</button><button onclick="showProfileTab('saved')">المحفوظات</button><button onclick="showProfileTab('stories')">القصص</button></div>
-      <div id="profileContent"></div>
-    </div>
-  </section>
+    <!-- واجهة التطبيق الرئيسية -->
+    <section id="mainApp" class="main-app hidden">
+      <!-- الشريط العلوي -->
+      <header class="app-header">
+        <div class="header-left">
+          <div class="logo-text">Arlo</div>
+        </div>
+        <div class="header-right">
+          <button class="icon-button" onclick="openSearchModal()">🔍</button>
+          <button class="icon-button" onclick="switchTab('notifications')">
+            🔔
+            <span id="unreadNotifBadge" class="badge hidden">0</span>
+          </button>
+          <button class="icon-button" onclick="switchTab('chats')">
+            💬
+            <span id="unreadChatBadge" class="badge hidden">0</span>
+          </button>
+        </div>
+      </header>
 
-  <section id="settingsPage" class="page hidden">
-    <div class="section-title"><h2>⚙️ الإعدادات</h2><p>تحكم كامل في حسابك وخصوصيتك وتجربة Arlo.</p></div>
+      <!-- محتوى الصفحات -->
+      <main class="app-body">
+        
+        <!-- 1. الرئيسية / Feed -->
+        <section id="tab-feed" class="tab-page active">
+          <div class="create-post-card">
+            <div class="avatar" id="feedUserAvatar"></div>
+            <input type="text" readonly placeholder="بم تفكر اليوم؟" onclick="openCreatePostModal()">
+            <button class="icon-button" onclick="openCreatePostModal()">📷</button>
+          </div>
+          <div id="postsFeed" class="posts-feed"></div>
+        </section>
 
-    <div class="settings-group">
-      <h3>👤 الحساب</h3>
-      <button class="setting-btn" onclick="editProfile()">✏️ تعديل الملف الشخصي</button>
-      <button class="setting-btn" onclick="openSettingsSection('verified')">✓ شراء علامة التوثيق</button>
-      <button class="setting-btn" onclick="openSettingsSection('account')">🔐 الحساب وتسجيل الدخول</button>
+        <!-- 2. المحادثات / Chats -->
+        <section id="tab-chats" class="tab-page hidden">
+          <div class="chats-container">
+            <div class="chats-sidebar" id="chatsList">
+              <!-- يتم ملؤها بالديناميكية -->
+            </div>
+            
+            <section id="chatPanel" class="chat-panel hidden">
+              <div class="chat-title">
+                <button class="chat-back-btn icon-button" onclick="closeChat()">←</button>
+                <div class="avatar" id="chatAvatar"></div>
+                <div>
+                  <strong id="chatName">المحادثة</strong>
+                  <small id="chatStatus" class="muted">متصل</small>
+                </div>
+                <button class="icon-button" onclick="openChatInfo()">ℹ️</button>
+              </div>
+              <div id="messagesList" class="messages-list"></div>
+              <div class="chat-input-bar">
+                <button class="icon-button" onclick="toggleAttachMenu()">📎</button>
+                <button class="icon-button" onclick="toggleEmojiPanel()">😊</button>
+                <input id="messageInput" placeholder="اكتب رسالة..." autocomplete="off">
+                <button id="voiceMessageBtn" class="icon-button" onclick="toggleVoiceMessage()">🎙️</button>
+                <button class="primary-btn" id="sendMessageBtn" onclick="sendMessage()">إرسال</button>
+              </div>
+              <div id="chatEmojiPanel" class="emoji-panel hidden"></div>
+              <div id="chatAttachMenu" class="attach-menu hidden">
+                <button onclick="pickChatAttachment('image')">🖼️ صورة</button>
+                <button onclick="pickChatAttachment('video')">🎥 فيديو</button>
+                <button onclick="pickChatAttachment('file')">📁 ملف</button>
+              </div>
+              <input id="chatImageInput" type="file" accept="image/*" hidden onchange="attachChatFile(this)">
+              <input id="chatVideoInput" type="file" accept="video/*" hidden onchange="attachChatFile(this)">
+              <input id="chatFileInput" type="file" hidden onchange="attachChatFile(this)">
+            </section>
+          </div>
+        </section>
+
+        <!-- 3. الإشعارات / Notifications -->
+        <section id="tab-notifications" class="tab-page hidden">
+          <div id="notificationsList" class="notifications-list"></div>
+        </section>
+
+        <!-- 4. الملف الشخصي / Profile -->
+        <section id="tab-profile" class="tab-page hidden">
+          <div class="profile-header-card">
+            <div class="cover-image" id="profileCover"></div>
+            <div class="profile-info-bar">
+              <div class="avatar large" id="profileAvatar"></div>
+              <div class="profile-titles">
+                <h2 id="profileName">--</h2>
+                <span id="profileHandle" class="muted">@--</span>
+              </div>
+              <button id="editProfileBtn" class="secondary-btn" onclick="openEditProfileModal()">تعديل الملف</button>
+            </div>
+            <p id="profileBio" class="profile-bio"></p>
+            <div class="profile-stats">
+              <div><strong id="statPosts">0</strong><span>منشورات</span></div>
+              <div><strong id="statFollowers">0</strong><span>متابعين</span></div>
+              <div><strong id="statFollowing">0</strong><span>يتابع</span></div>
+            </div>
+          </div>
+          <div id="userPostsFeed" class="posts-feed"></div>
+        </section>
+
+        <!-- 5. الإعدادات / Settings -->
+        <section id="tab-settings" class="tab-page hidden">
+          <div class="settings-list">
+            <h3>الإعدادات والحساب</h3>
+            <div class="setting-item" onclick="toggleTheme()">
+              <span>الظلمة والنمط (Theme)</span>
+              <span id="themeLabel">Midnight</span>
+            </div>
+            <div class="setting-item" onclick="openAccountSettings()">
+              <span>إدارة الحساب والأمان</span>
+              <span>></span>
+            </div>
+            <div class="setting-item danger" onclick="logout()">
+              <span>تسجيل الخروج</span>
+              <span>🚪</span>
+            </div>
+            <div class="setting-item danger-fill" onclick="deleteOwnAccount()">
+              <span>حذف الحساب نهائياً</span>
+              <span>⚠️</span>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- الشريط السفلي للرجوع/التنقل -->
+      <nav class="app-nav">
+        <button class="nav-btn active" onclick="switchTab('feed')">🏠 <span>الرئيسية</span></button>
+        <button class="nav-btn" onclick="switchTab('chats')">💬 <span>الرسائل</span></button>
+        <button class="nav-btn" onclick="openCreatePostModal()">➕ <span>نشر</span></button>
+        <button class="nav-btn" onclick="switchTab('notifications')">🔔 <span>الإشعارات</span></button>
+        <button class="nav-btn" onclick="switchTab('profile')">👤 <span>حسابي</span></button>
+      </nav>
+
+    </section>
+
+    <!-- المودالات / Popups -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+      
+      <!-- مودال إنشاء منشور -->
+      <div id="createPostModal" class="modal-card hidden">
+        <div class="modal-header">
+          <h3>إنشاء منشور جديد</h3>
+          <button class="icon-button" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <textarea id="postContentInput" placeholder="اكتب شيئاً..."></textarea>
+          <div id="postMediaPreview" class="media-preview hidden"></div>
+        </div>
+        <div class="modal-footer">
+          <input type="file" id="postMediaInput" hidden onchange="handlePostMediaSelect(this)">
+          <button class="icon-button" onclick="document.getElementById('postMediaInput').click()">🖼️ إضافة صورة/فيديو</button>
+          <button class="primary-btn" id="publishPostBtn" onclick="publishPost()">نشر</button>
+        </div>
+      </div>
+
+      <!-- مودال البحث -->
+      <div id="searchModal" class="modal-card hidden">
+        <div class="modal-header">
+          <input type="text" id="searchInput" placeholder="ابحث عن مستخدمين..." oninput="handleSearch(this.value)">
+          <button class="icon-button" onclick="closeModal()">✕</button>
+        </div>
+        <div id="searchResults" class="search-results-list"></div>
+      </div>
+
     </div>
 
-    <div class="settings-group">
-      <h3>🔒 الخصوصية والأمان</h3>
-      <button class="setting-btn" onclick="openSettingsSection('privacy')">🔒 الخصوصية</button>
-      <button class="setting-btn" onclick="openSettingsSection('security')">🛡️ الأمان وتسجيل الدخول</button>
-      <button class="setting-btn" onclick="openSettingsSection('blocked')">🚫 الحظر</button>
-    </div>
-
-    <div class="settings-group">
-      <h3>🔔 التفضيلات</h3>
-      <button class="setting-btn" onclick="openSettingsSection('notifications')">🔔 الإشعارات</button>
-      <button class="setting-btn" onclick="openSettingsSection('stories')">📖 إعدادات القصص</button>
-      <button class="setting-btn" onclick="openSettingsSection('posts')">📝 إعدادات المنشورات</button>
-      <button class="setting-btn" onclick="openSettingsSection('messages')">💬 الرسائل والتعليقات</button>
-      <button class="setting-btn" onclick="toggleTheme()">🌙 الوضع الداكن / الفاتح</button>
-      <button class="setting-btn" onclick="openSettingsSection('language')">🌐 اللغة</button>
-    </div>
-
-    <div class="settings-group">
-      <h3>🧰 أدوات Arlo</h3>
-      <button class="setting-btn" onclick="openPage('ai')">🤖 AI Arlo</button>
-      <button class="setting-btn" onclick="openPage('explore')">🔎 البحث والاستكشاف</button>
-      <button class="setting-btn" onclick="openSettingsSection('activity')">📊 نشاطك</button>
-      <button class="setting-btn" onclick="openSettingsSection('saved')">🔖 المحفوظات</button>
-      <button class="setting-btn" onclick="openSettingsSection('help')">❓ المساعدة والإبلاغ</button>
-    </div>
-
-    <div class="settings-group">
-      <h3>🧭 تجربة Arlo</h3>
-      <button class="setting-btn" onclick="openSettingsSection('feed')">🏠 تفضيلات الصفحة الرئيسية</button>
-      <button class="setting-btn" onclick="openSettingsSection('search')">🔎 البحث والاستكشاف</button>
-      <button class="setting-btn" onclick="openSettingsSection('media')">🎵 الصور والفيديو والموسيقى</button>
-      <button class="setting-btn" onclick="openSettingsSection('friends')">👥 الأصدقاء وطلبات الصداقة</button>
-    </div>
-
-    <div class="settings-group">
-      <h3>♿ إمكانية الوصول</h3>
-      <button class="setting-btn" onclick="openSettingsSection('accessibility')">♿ إعدادات إمكانية الوصول</button>
-      <button class="setting-btn" onclick="openSettingsSection('data')">📶 استخدام البيانات</button>
-      <button class="setting-btn" onclick="toggleDataSaver()">📉 تبديل توفير البيانات</button>
-    </div>
-
-    <div class="settings-group">
-      <h3>⚠️ إدارة الحساب</h3>
-      <button class="setting-btn" onclick="openSettingsSection('download')">📥 تنزيل بياناتك</button>
-      <button class="setting-btn danger" onclick="logout()">🚪 تسجيل الخروج</button>
-      <button class="setting-btn danger" onclick="requestDeleteAccount()">🗑️ طلب حذف الحساب</button>
-    </div>
-  <p class="app-version">Arlo V1.2 • نسخة تجريبية</p>
-  </section>
-
-  <section id="aiPage" class="page hidden">
-    <div class="section-title"><h2>🤖 AI Arlo</h2><p>مساعد تجريبي داخل التطبيق.</p></div>
-    <div class="ai-box"><div id="aiMessages"><div class="ai-msg">أهلاً! أنا AI Arlo. اكتب سؤالك.</div></div><div class="message-compose"><input id="aiInput" placeholder="اكتب سؤالك..."><button onclick="askAI()">إرسال</button></div></div>
-  </section>
-</main>
-
-<nav class="bottom-nav" aria-label="التنقل الرئيسي">
-  <button class="active" onclick="openPage('home')"><span class="nav-svg" data-icon="home"></span><small>الرئيسية</small></button>
-  <button onclick="openPage('explore')"><span class="nav-svg" data-icon="users"></span><small>المجموعات</small></button>
-  <button class="create-btn" onclick="openPostEditor()" aria-label="إنشاء منشور"><span class="nav-svg" data-icon="plus"></span><small>إنشاء</small></button>
-  <button onclick="openPage('messages')"><span class="nav-svg" data-icon="message"></span><small>الرسائل</small></button>
-  <button onclick="openPage('profile')"><span id="bottomProfileAvatar" class="bottom-profile-avatar"><span class="nav-svg" data-icon="profile"></span></span><small>الملف الشخصي</small></button>
-</nav>
-</div>
-
-<div id="postEditor" class="modal hidden">
-  <div class="modal-card post-editor-card">
-    <button class="close-modal" onclick="closePostEditor()">×</button>
-    <h2><span class="ui-icon icon-plus"></span> إنشاء منشور</h2>
-    <div class="create-post post-editor-compose">
-      <div id="postEditorAvatar" class="avatar">A</div>
-      <input id="postText" placeholder="ماذا تريد أن تنشر؟" autocomplete="off" oninput="previewPostStyle()">
-    </div>
-    <div class="post-style-preview" id="postTextPreview">معاينة النص</div>
-    <div class="post-editor-options">
-      <label><span>الخلفية</span><input id="postBg" type="color" value="#1A140F" oninput="previewPostStyle()"></label>
-      <label><span>لون الخط</span><input id="postColor" type="color" value="#F5E7C8" oninput="previewPostStyle()"></label>
-      <label class="font-select"><span>الخط</span><select id="postFont" onchange="previewPostStyle()"><option value="inherit">افتراضي</option><option value="Tahoma">Tahoma</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Courier New">Courier</option></select></label>
-    </div>
-    <div class="post-media-tools">
-      <label class="media-pick"><span class="ui-icon icon-image"></span> صورة / فيديو <input id="postMedia" type="file" accept="image/*,video/*" onchange="previewPostMedia()" hidden></label>
-      <label class="media-pick"><span class="ui-icon icon-play"></span> موسيقى <input id="postMusic" type="file" accept="audio/*" onchange="document.getElementById('postMusicName').textContent=this.files[0]?.name||''" hidden></label>
-      <span id="postMusicName" class="muted"></span>
-      <button type="button" onclick="clearPostMedia()">✕ إزالة الوسائط</button>
-    </div>
-    <div id="postMediaPreview" class="post-media-preview hidden"></div>
-    <div id="postUploadProgress" class="upload-progress hidden"><div class="upload-progress-track"><div id="postUploadBar" class="upload-progress-bar"></div></div><small id="postUploadStatus"></small></div>
-    <button class="publish-btn post-editor-publish" onclick="publishPost()"><span>نشر</span></button>
   </div>
-</div>
 
-<div id="storyEditor" class="modal hidden">
-  <div class="modal-card">
-    <button class="close-modal" onclick="closeStoryEditor()">×</button><h2><span class="ui-icon icon-story"></span> إنشاء قصة</h2>
-    <input id="storyMedia" type="file" accept="image/*,video/*">
-    <p class="muted story-help">تقدر تنشر نص فقط، صورة/فيديو فقط، نص مع صورة/فيديو، أو تضيف ملفًا صوتيًا من جهازك.</p>
-    <div class="editor-tools">
-      <button onclick="document.getElementById('storyText').focus()">✏️ نص</button>
-      <button onclick="document.getElementById('storyAudio').click()">🎵 موسيقى</button><button onclick="previewStory()">👁️ معاينة</button>
-      <button onclick="clearStoryEditor()">↩️ مسح</button>
-    </div>
-    <textarea id="storyText" placeholder="اكتب شيئًا على القصة..."></textarea>
-    <input id="storyAudio" type="file" accept="audio/*" class="hidden">
-    <div id="audioName" class="muted"></div>
-    <div id="storyPreview" class="story-preview"><span>المعاينة تظهر هنا</span></div>
-    <button class="primary-btn" onclick="publishStory()">نشر القصة</button>
-  </div>
-</div>
-
-<div id="storyViewer" class="modal hidden">
-  <div class="story-viewer"><button class="close-modal" onclick="closeStoryViewer()">×</button><div id="storyViewerContent"></div></div>
-</div>
-
-<div id="userModal" class="modal hidden">
-  <div class="modal-card center"><button class="close-modal" onclick="closeUserProfile()">×</button><div id="otherAvatar" class="profile-avatar">K</div><h2 id="otherName">مستخدم Arlo</h2><p id="otherUsername" class="muted"></p><p id="otherBio">عضو في Arlo</p><button id="friendButton" class="primary-btn">➕ إضافة صديق</button><button class="secondary-btn" onclick="messageSelectedUser()">💬 مراسلة</button></div>
-</div>
-
-<div id="editModal" class="modal hidden">
-  <div class="modal-card"><button class="close-modal" onclick="closeEdit()">×</button><h2>تعديل الملف الشخصي</h2><input id="editName" placeholder="الاسم"><input id="editUsername" placeholder="اسم المستخدم"><textarea id="editBio" placeholder="نبذة عنك"></textarea><button class="primary-btn" onclick="saveProfile()">حفظ</button></div>
-</div>
-
-<div id="actionMenu" class="modal action-menu-overlay hidden" onclick="if(event.target===this)closeActionMenu()">
-  <div class="action-sheet" role="dialog" aria-modal="true">
-    <button class="close-modal" onclick="closeActionMenu()">×</button>
-    <h3 id="actionMenuTitle">خيارات المحتوى</h3>
-    <button id="actionEdit" class="action-item" onclick="actionEdit()">✏️ تعديل المحتوى</button>
-    <button id="actionDelete" class="action-item danger" onclick="actionDelete()">🗑️ حذف المحتوى</button>
-    <button id="actionReport" class="action-item danger" onclick="actionReport()">⚠️ الإبلاغ عن المحتوى</button>
-  </div>
-</div>
-
-
-<div id="chatInfoModal" class="modal hidden" onclick="if(event.target===this)closeChatInfo()">
-  <div class="modal-card chat-info-card">
-    <button class="close-modal" onclick="closeChatInfo()">×</button>
-    <div class="chat-info-avatar" id="chatInfoAvatar">K</div>
-    <h2 id="chatInfoName">مستخدم Arlo</h2>
-    <p id="chatInfoUsername" class="muted"></p>
-    <div class="chat-info-actions">
-      <button onclick="toggleChatMute()">🔕 كتم الإشعارات</button>
-      <button onclick="alert('البحث داخل المحادثة سيُفعّل مع فهرسة الرسائل.')">⌕ البحث في المحادثة</button>
-      <button onclick="alert('قسم الوسائط والملفات جاهز للربط مع رسائل Arlo.')">▣ الوسائط والملفات</button>
-      <button onclick="alert('إعدادات الخصوصية للمحادثة محفوظة محليًا في هذه النسخة التجريبية.')">⚙ إعدادات المحادثة</button>
-      <button class="danger" onclick="closeChatInfo();alert('يمكنك حظر المستخدم من إعدادات الحساب عند ربط نظام الحظر في Firebase.')">🚫 حظر المستخدم</button>
-    </div>
-  </div>
-</div>
-
-<div id="callModal" class="modal hidden">
-  <div class="modal-card center call-card"><button class="close-modal" onclick="closeCallModal()">×</button><div class="call-icon">📹</div><h2 id="callTitle">مكالمة فيديو</h2><p class="muted">واجهة المكالمة جاهزة، وربط WebRTC/الإشارات يحتاج إعداد خدمة المكالمات.</p><button class="primary-btn" onclick="closeCallModal()">إغلاق</button></div>
-</div>
-
-<div id="settingsMenu" class="modal hidden settings-menu-overlay" onclick="if(event.target===this)closeSettingsMenu()">
-  <div class="settings-drawer">
-    <button class="close-modal" onclick="closeSettingsMenu()">×</button>
-    <div class="drawer-title"><div class="brand-logo"><img src="arlo-logo-reference.png" alt="Arlo"></div><div><strong>Arlo</strong><small>الإعدادات والقائمة</small></div></div>
-    <button class="drawer-item" onclick="openPage('profile');closeSettingsMenu()">👤 الملف الشخصي</button>
-    <button class="drawer-item" onclick="openPage('settings');closeSettingsMenu()">⚙️ الإعدادات</button>
-    <button class="drawer-item" onclick="openPage('notifications');closeSettingsMenu()">🔔 الإشعارات</button>
-    <button class="drawer-item" onclick="openPage('messages');closeSettingsMenu()">💬 الرسائل</button>
-    <button class="drawer-item" onclick="openPage('ai');closeSettingsMenu()">🤖 AI Arlo</button>
-    <button class="drawer-item" onclick="toggleTheme();closeSettingsMenu()">🌙 تغيير المظهر</button>
-    <button class="drawer-item danger" onclick="logout()">🚪 تسجيل الخروج</button>
-  </div>
-</div>
-
-<div id="settingsSectionModal" class="modal hidden">
-  <div class="modal-card settings-detail-card">
-    <button class="close-modal" onclick="closeSettingsSection()">×</button>
-    <h2 id="settingsDetailTitle">الإعدادات</h2>
-    <p id="settingsDetailText" class="muted"></p>
-    <div id="settingsDetailBody"></div>
-  </div>
-</div>
-
-<script type="module" src="app.js"></script>
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

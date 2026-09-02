@@ -801,3 +801,22 @@ body.dark{--bg:#14100C;--card:#21170F;--text:#F6ECDD;--muted:#C9B7A5;--border:#4
 .chat-call-actions button:hover{color:var(--gold)!important;background:var(--bg)!important;border-color:var(--gold)!important;}
 .chat-call-actions button:active{transform:scale(.96);}
 @media(max-width:700px){.chat-call-actions button{width:38px!important;height:38px!important;min-width:38px!important}.chat-call-actions button .ui-icon{width:21px!important;height:21px!important}}
+
+
+/* ARLO V1.5 notification system */
+.notification-trigger{position:relative}
+.notification-badge{position:absolute;top:2px;right:1px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#D4AF37;color:#1A140F;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface,#1A140F);line-height:1}
+.notification-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.notification-filters{display:flex;gap:8px;margin:0 0 14px;overflow:auto}
+.notification-filters button{border:1px solid rgba(212,175,55,.25);background:transparent;color:var(--text);border-radius:999px;padding:8px 14px;white-space:nowrap;cursor:pointer}
+.notification-filters button.active{background:#D4AF37;color:#1A140F}
+.notification-item{display:flex;align-items:center;gap:12px;padding:13px;margin:8px 0;border:1px solid rgba(212,175,55,.16);border-radius:16px;background:var(--card,#211710);transition:.2s}
+.notification-item.unread{border-color:rgba(212,175,55,.42);box-shadow:0 4px 18px rgba(0,0,0,.12)}
+.notification-item.read{opacity:.78}
+.notification-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:rgba(212,175,55,.12);font-size:20px;flex:0 0 42px}
+.notification-body{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.notification-body b{font-size:14px;line-height:1.6}
+.notification-body small{font-size:11px}
+.notification-read-btn{border:0;background:transparent;color:#D4AF37;font-size:11px;cursor:pointer;white-space:nowrap}
+.empty-notifications{padding:28px;text-align:center}
+@media(max-width:600px){.notification-head{align-items:flex-start;flex-direction:column}.notification-head .secondary-btn{width:100%}.notification-read-btn{font-size:10px}.notification-item{padding:11px}}

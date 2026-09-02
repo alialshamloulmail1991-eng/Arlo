@@ -1,0 +1,18 @@
+{
+  "name": "Arlo — منصة اجتماعية",
+  "short_name": "Arlo",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "dir": "rtl",
+  "lang": "ar",
+  "theme_color": "#14100C",
+  "background_color": "#14100C",
+  "icons": [
+    {
+      "src": "arlo-logo.png",
+      "sizes": "1536x1536",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
